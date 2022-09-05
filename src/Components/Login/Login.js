@@ -1,32 +1,81 @@
 import { useState } from "react";
-function Login() {
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
+import classes from "./Login.module.css";
 
+const Login = (props) => {
+  const [enteredEmail, setEnteredEmail] = useState("");
+  const [emailIsValid, setEmailIsValid] = useState();
+  const [enteredPassword, setEnteredPassword] = useState("");
+  const [passwordIsValid, setPasswordIsValid] = useState();
+  const [formIsValid, setFormIsValid] = useState(false);
+
+  /*formIsValid controls whether the submit button is disabled or not. 
+  For each key stroke it checks whether the conditions are true or not and a boolean value is returned */
   const emailChangeHandler = (e) => {
     setEnteredEmail(e.target.value);
-    console.log(enteredEmail);
+
+    setFormIsValid(
+      e.target.value.includes("@") && enteredPassword.trim().length > 6
+    );
   };
 
   const passwordChangeHandler = (e) => {
     setEnteredPassword(e.target.value);
-    console.log(enteredPassword);
+
+    setFormIsValid(
+      e.target.value.trim().length > 6 && enteredEmail.includes("@")
+    );
   };
+
+  /*setEmailIsValid and setPasswordIsValid affect the dynamic css for the input elements*/
+  const validateEmailHandler = () => {
+    setEmailIsValid(enteredEmail.includes("@"));
+  };
+
+  const validatePasswordHandler = () => {
+    setPasswordIsValid(enteredPassword.trim().length > 6);
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <form>
-      <div>
+    <form onSubmit={submitHandler}>
+      <div
+        className={`${classes.control} ${
+          emailIsValid === false ? classes.invalid : ""
+        }`}
+      >
         <label htmlFor="email">E-Mail</label>
-        <input type="email" onChange={emailChangeHandler} />
+        <input
+          type="email"
+          id="email"
+          value={enteredEmail}
+          onChange={emailChangeHandler}
+          onBlur={validateEmailHandler}
+        />
       </div>
-      <div>
+      <div
+        className={`${classes.control} ${
+          passwordIsValid === false ? classes.invalid : ""
+        }`}
+      >
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" onChange={passwordChangeHandler} />
+        <input
+          type="password"
+          id="password"
+          value={enteredPassword}
+          onChange={passwordChangeHandler}
+          onBlur={validatePasswordHandler}
+        />
       </div>
       <div>
-        <button type="submit">Login</button>
+        <button type="submit" disabled={!formIsValid}>
+          Login
+        </button>
       </div>
     </form>
   );
-}
+};
 
 export default Login;
