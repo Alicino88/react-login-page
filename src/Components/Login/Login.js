@@ -1,6 +1,7 @@
 import { useState } from "react";
 import classes from "./Login.module.css";
 import Card from "../UI/Card";
+import Button from "../UI/Button";
 
 const Login = (props) => {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -71,10 +72,10 @@ const Login = (props) => {
             onBlur={validatePasswordHandler}
           />
         </div>
-        <div>
-          <button type="submit" disabled={!formIsValid}>
+        <div className={classes.actions}>
+          <Button type="submit" disabled={!formIsValid}>
             Login
-          </button>
+          </Button>
         </div>
       </form>
     </Card>
