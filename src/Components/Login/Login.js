@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classes from "./Login.module.css";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
@@ -10,22 +10,20 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
-  /*formIsValid controls whether the submit button is disabled or not. 
-  For each key stroke it checks whether the conditions are true or not and a boolean value is returned */
+  /*formIsValid controls whether the submit button is disabled or not.*/
+  /*whenever we type a character inside the email and password fields, useEffect is being run*/
+  useEffect(() => {
+    setFormIsValid(
+      enteredEmail.includes("@") && enteredPassword.trim().length > 6
+    );
+  }, [enteredEmail, enteredPassword]);
+
   const emailChangeHandler = (e) => {
     setEnteredEmail(e.target.value);
-
-    setFormIsValid(
-      e.target.value.includes("@") && enteredPassword.trim().length > 6
-    );
   };
 
   const passwordChangeHandler = (e) => {
     setEnteredPassword(e.target.value);
-
-    setFormIsValid(
-      e.target.value.trim().length > 6 && enteredEmail.includes("@")
-    );
   };
 
   /*setEmailIsValid and setPasswordIsValid affect the dynamic css for the input elements*/
