@@ -12,6 +12,7 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  /*logoutHandler is fired when the user clicks on the logout button inside the Navigation component */
   const logoutHandler = () => {
     setIsLoggedIn(false);
   };
