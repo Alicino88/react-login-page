@@ -11,11 +11,26 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   /*formIsValid controls whether the submit button is disabled or not.*/
-  /*whenever we type a character inside the email and password fields, useEffect is being run*/
+
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes("@") && enteredPassword.trim().length > 6
-    );
+    /*below code to check the input only after the user has stopped typing for 2 secs. This is to prevent to check
+    for every keystroke (debouncing technique). To achieve this we use cleanup function and clearTimeout.
+    HOW IT WORKS: Whenever we type (either inside email or password field) a new setTimeout function is fired (as useEffect is fired).
+    By adding a cleanup function, when we type we clear the previous timeout (with clearTimeout) and, by doing so, the condition is checked
+    only after 2 seconds after the last character we have typed.*/
+
+    const identifier = setTimeout(() => {
+      console.log("Checking form validity!");
+      setFormIsValid(
+        enteredEmail.includes("@") && enteredPassword.trim().length > 6
+      );
+    }, 2000);
+
+    /* below cleanup function that runs everytime before useEffect side effect function runs and before the component unmounts.*/
+    return () => {
+      console.log("CLEANUP");
+      clearTimeout(identifier);
+    };
   }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (e) => {
