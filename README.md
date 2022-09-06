@@ -6,7 +6,7 @@ The original code belongs to the udemy course https://www.udemy.com/course/react
 
 Interesting concepts implemented:
 
-- useEffect
+- useEffect, useEffect cleanup function
 - localStorage object
 - login and logout
 - form validation
