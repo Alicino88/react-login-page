@@ -28,7 +28,7 @@ const Login = (props) => {
 
     /* below cleanup function that runs everytime before useEffect side effect function runs and before the component unmounts.*/
     return () => {
-      console.log("CLEANUP");
+      console.log("Cleanup runs");
       clearTimeout(identifier);
     };
   }, [enteredEmail, enteredPassword]);
