@@ -28,6 +28,7 @@ function App() {
   const logoutHandler = () => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
+    console.log(isLoggedIn);
   };
 
   return (
@@ -35,7 +36,7 @@ function App() {
       <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
       <main>
         {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
       </main>
     </>
   );
