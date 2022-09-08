@@ -2,6 +2,7 @@ import Login from "./Components/Login/Login.js";
 import { useState, useEffect } from "react";
 import Home from "./Components/Home/Home.js";
 import MainHeader from "./Components/MainHeader/MainHeader.js";
+import AuthContext from "./Context/auth-context.js";
 
 function App() {
   /*initially the Login component is shown. 
@@ -28,16 +29,21 @@ function App() {
   const logoutHandler = () => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
-    console.log(isLoggedIn);
   };
 
   return (
     <>
-      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
-      <main>
-        {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
-      </main>
+      <AuthContext.Provider
+        value={{
+          isLoggedIn: isLoggedIn,
+        }}
+      >
+        <MainHeader onLogout={logoutHandler} />
+        <main>
+          {!isLoggedIn && <Login onLogin={loginHandler} />}
+          {isLoggedIn && <Home onLogout={logoutHandler} />}
+        </main>
+      </AuthContext.Provider>
     </>
   );
 }

@@ -1,20 +1,24 @@
+import { useContext } from "react";
+import AuthContext from "../../Context/auth-context";
 import classes from "./Navigation.module.css";
 /*if isLoggedIn is true then the list components are shown, otherwise the ul remains empty */
 const Navigation = (props) => {
+  const ctx = useContext(AuthContext);
+  console.log(ctx);
   return (
     <nav className={classes.nav}>
       <ul>
-        {props.isLoggedIn && (
+        {ctx.isLoggedIn && (
           <li>
             <a href="/">Users</a>
           </li>
         )}
-        {props.isLoggedIn && (
+        {ctx.isLoggedIn && (
           <li>
             <a href="/">Admin</a>
           </li>
         )}
-        {props.isLoggedIn && (
+        {ctx.isLoggedIn && (
           <li>
             <button onClick={props.onLogout}>Logout</button>
           </li>
