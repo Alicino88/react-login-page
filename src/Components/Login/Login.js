@@ -20,15 +20,15 @@ const Login = (props) => {
     only after 2 seconds after the last character we have typed.*/
 
     const identifier = setTimeout(() => {
-      console.log("Checking form validity!");
+      /*console.log("Checking form validity!");*/
       setFormIsValid(
         enteredEmail.includes("@") && enteredPassword.trim().length > 6
       );
-    }, 2000);
+    }, 500);
 
     /* below cleanup function that runs everytime before useEffect side effect function runs and before the component unmounts.*/
     return () => {
-      console.log("Cleanup runs");
+      /*console.log("Cleanup runs");*/
       clearTimeout(identifier);
     };
   }, [enteredEmail, enteredPassword]);
