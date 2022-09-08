@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import AuthContext from "../../Context/auth-context";
 import classes from "./Login.module.css";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
@@ -11,6 +12,8 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   /*formIsValid controls whether the submit button is disabled or not.*/
+
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     /*below code to check the input only after the user has stopped typing for 2 secs. This is to prevent to check
@@ -52,7 +55,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(enteredEmail, enteredPassword);
+    authCtx.onLogin(enteredEmail, enteredPassword);
   };
 
   return (
