@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AuthContext from "../../Context/auth-context";
 import classes from "./Navigation.module.css";
 /*if isLoggedIn is true then the list components are shown, otherwise the ul remains empty */
-const Navigation = (props) => {
+const Navigation = () => {
   const ctx = useContext(AuthContext);
   console.log(ctx);
   return (
@@ -20,7 +20,7 @@ const Navigation = (props) => {
         )}
         {ctx.isLoggedIn && (
           <li>
-            <button onClick={props.onLogout}>Logout</button>
+            <button onClick={ctx.onLogout}>Logout</button>
           </li>
         )}
       </ul>
